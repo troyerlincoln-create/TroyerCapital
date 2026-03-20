@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Troyer Capital | Financial Solutions for Families & Business Owners</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --black: #0a0a0a;
+      --dark: #1e1a14;
+      --mid: #ffffff;
+      --border: #d0cec8;
+      --muted: #8a8a8a;
+      --light: #5a5a5a;
+      --silver: #3a3a3a;
+      --white: #f5f5f3;
+      --cream: #ede8df;
+      --warm: #f0ede8;
+      --gold: #b89a5e;
+      --gold-light: #d4b97a;
+      --gold-dark: #8a6e3a;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Outfit', sans-serif; background: var(--white); color: var(--black); overflow-x: hidden; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.4rem 4rem;
+      background: rgba(245,245,243,0.92); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border); transition: background 0.3s;
+    }
+    .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; letter-spacing: 0.04em; color: var(--black); text-decoration: none; }
+    .nav-logo span { color: var(--gold); }
+    .nav-links { display: flex; gap: 2.4rem; list-style: none; }
+    .nav-links a { font-size: 0.78rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--light); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cta { font-size: 0.78rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.65rem 1.6rem; border: 1px solid var(--gold); color: var(--gold); text-decoration: none; transition: all 0.25s; }
+    .nav-cta:hover { background: var(--gold); color: var(--white); }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr;
+      align-items: center; padding: 0 4rem;
+      position: relative; overflow: hidden; background: var(--white);
+    }
+    .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 60% 70% at 70% 50%, rgba(184,154,94,0.06) 0%, transparent 65%); }
+    .hero-lines {
+      position: absolute; inset: 0;
+      background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 80px 80px; opacity: 0.5;
+      mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+    }
+    .hero-content { position: relative; z-index: 2; padding-top: 6rem; animation: fadeUp 0.9s 0.1s ease both; }
+    .hero-eyebrow { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.4rem; display: flex; align-items: center; gap: 0.8rem; }
+    .hero-eyebrow::before { content: ''; display: block; width: 32px; height: 1px; background: var(--gold); }
+    h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem, 5.5vw, 5.2rem); font-weight: 300; line-height: 1.05; color: var(--black); margin-bottom: 1.6rem; }
+    h1 em { font-style: italic; color: var(--gold); }
+    .hero-sub { font-size: 1rem; font-weight: 300; line-height: 1.75; color: var(--light); max-width: 460px; margin-bottom: 2.4rem; }
+    .hero-actions { display: flex; gap: 1.2rem; align-items: center; }
+    .btn-primary { display: inline-block; background: var(--gold); color: var(--white); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; padding: 1rem 2.4rem; text-decoration: none; transition: all 0.25s; }
+    .btn-primary:hover { background: var(--gold-dark); transform: translateY(-1px); }
+    .btn-ghost { display: inline-block; color: var(--light); font-size: 0.78rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 2px; transition: all 0.2s; }
+    .btn-ghost:hover { color: var(--black); border-color: var(--black); }
+
+    .hero-right { position: relative; z-index: 2; display: flex; justify-content: center; align-items: center; padding-top: 6rem; animation: fadeUp 0.9s 0.25s ease both; }
+    .hero-card { background: var(--mid); border: 1px solid var(--border); padding: 2.8rem; width: 360px; position: relative; }
+    .hero-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--gold), transparent); }
+    .hero-card-label { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.2rem; }
+    .hero-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 400; color: var(--black); margin-bottom: 0.5rem; }
+    .hero-card p { font-size: 0.83rem; color: var(--light); line-height: 1.7; margin-bottom: 1.6rem; }
+    .card-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); }
+    .stat { background: var(--warm); padding: 1.1rem; }
+    .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 600; color: var(--gold); line-height: 1; margin-bottom: 0.3rem; }
+    .stat-label { font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+
+    /* TRUST BAR */
+    .trust-bar { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 1.2rem 4rem; display: flex; align-items: center; gap: 3rem; background: var(--cream); }
+    .trust-label { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+    .trust-items { display: flex; gap: 3rem; flex-wrap: wrap; }
+    .trust-item { font-size: 0.8rem; font-weight: 500; color: var(--silver); letter-spacing: 0.05em; display: flex; align-items: center; gap: 0.5rem; }
+    .trust-item::before { content: '◆'; font-size: 0.4rem; color: var(--gold); }
+
+    /* ABOUT */
+    #about { padding: 7rem 4rem; display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; background: var(--white); }
+    .section-eyebrow { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.2rem; display: flex; align-items: center; gap: 0.8rem; }
+    .section-eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--gold); }
+    h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 3.5vw, 3.2rem); font-weight: 300; line-height: 1.15; margin-bottom: 1.2rem; color: var(--black); }
+    h2 em { font-style: italic; color: var(--gold); }
+    .body-text { font-size: 0.93rem; font-weight: 300; line-height: 1.8; color: var(--light); margin-bottom: 1rem; }
+    .highlight-box { border-left: 2px solid var(--gold); padding: 1rem 1.4rem; background: rgba(184,154,94,0.06); margin-top: 1.6rem; }
+    .highlight-box p { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-style: italic; color: var(--dark); line-height: 1.6; }
+    .about-pillars { display: flex; flex-direction: column; }
+    .pillar { padding: 1.6rem 0; border-bottom: 1px solid var(--border); display: flex; gap: 1.4rem; align-items: flex-start; }
+    .pillar:first-child { border-top: 1px solid var(--border); }
+    .pillar-num { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 300; color: var(--border); line-height: 1; min-width: 2.4rem; }
+    .pillar-content h4 { font-size: 0.88rem; font-weight: 600; letter-spacing: 0.04em; color: var(--black); margin-bottom: 0.3rem; }
+    .pillar-content p { font-size: 0.8rem; color: var(--muted); line-height: 1.65; }
+
+    /* SERVICES */
+    #services { padding: 7rem 4rem; background: var(--cream); border-top: 1px solid var(--border); }
+    .section-header { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: end; margin-bottom: 3.5rem; }
+    .section-desc { font-size: 0.93rem; font-weight: 300; color: var(--light); line-height: 1.8; }
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); }
+    .service-card { background: var(--white); padding: 2.4rem; transition: background 0.3s; position: relative; overflow: hidden; }
+    .service-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 0; background: linear-gradient(0deg, rgba(184,154,94,0.05), transparent); transition: height 0.4s; }
+    .service-card:hover::after { height: 100%; }
+    .service-icon-wrap { width: 40px; height: 40px; margin-bottom: 1.2rem; }
+    .service-icon-wrap svg { width: 100%; height: 100%; }
+    .service-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 400; color: var(--black); margin-bottom: 0.5rem; }
+    .service-card p { font-size: 0.8rem; color: var(--muted); line-height: 1.7; }
+    .service-tag { display: inline-block; margin-top: 1.2rem; font-size: 0.63rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); border: 1px solid rgba(184,154,94,0.4); padding: 0.28rem 0.7rem; }
+
+    /* PRODUCTS */
+    #products { padding: 7rem 4rem; display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; background: var(--white); }
+    .product-features { display: flex; flex-direction: column; gap: 1rem; margin-top: 1.8rem; }
+    .feature-row { display: flex; align-items: flex-start; gap: 1rem; padding: 1.2rem; border: 1px solid var(--border); transition: border-color 0.25s; }
+    .feature-row:hover { border-color: var(--gold); }
+    .feature-icon-wrap { width: 28px; height: 28px; min-width: 28px; margin-top: 2px; }
+    .feature-icon-wrap svg { width: 100%; height: 100%; }
+    .feature-row h4 { font-size: 0.86rem; font-weight: 600; color: var(--black); margin-bottom: 0.2rem; }
+    .feature-row p { font-size: 0.78rem; color: var(--muted); line-height: 1.6; }
+    .product-card-big { background: var(--warm); border: 1px solid var(--border); padding: 2.8rem; position: relative; }
+    .product-card-big::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--gold), var(--gold-light), transparent); }
+    .product-title { font-family: 'Cormorant Garamond', serif; font-size: 0.85rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; }
+    .product-name { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 300; color: var(--black); line-height: 1.15; margin-bottom: 1.4rem; }
+    .comparison-table { width: 100%; border-collapse: collapse; }
+    .comparison-table th { font-size: 0.63rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-align: left; padding: 0.55rem 0.7rem; border-bottom: 1px solid var(--border); }
+    .comparison-table td { font-size: 0.8rem; color: var(--light); padding: 0.75rem 0.7rem; border-bottom: 1px solid var(--border); }
+    .comparison-table tr.highlight td { color: var(--gold-dark); }
+    .check { color: var(--gold-dark); }
+    .cross { color: var(--muted); }
+
+    /* WHO WE SERVE */
+    #who { padding: 7rem 4rem; background: var(--cream); border-top: 1px solid var(--border); }
+    .who-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); margin-top: 3.5rem; }
+    .who-card { background: var(--white); padding: 3rem; position: relative; }
+    .who-card::before { content: ''; position: absolute; top: 0; left: 3rem; width: 40px; height: 2px; background: var(--gold); }
+    .who-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.7rem; font-weight: 300; color: var(--black); margin-bottom: 0.8rem; margin-top: 1.4rem; }
+    .who-card p { font-size: 0.85rem; color: var(--light); line-height: 1.8; margin-bottom: 1.4rem; }
+    .who-list { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+    .who-list li { font-size: 0.8rem; color: var(--silver); display: flex; align-items: center; gap: 0.7rem; }
+    .who-list li::before { content: '→'; color: var(--gold); font-size: 0.75rem; }
+
+    /* CONTACT */
+    #contact { padding: 9rem 4rem; text-align: center; position: relative; overflow: hidden; background: var(--white); }
+    #contact::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(184,154,94,0.06) 0%, transparent 70%); }
+    #contact .section-eyebrow { justify-content: center; }
+    #contact .section-eyebrow::before { display: none; }
+    #contact h2 { font-size: clamp(2.2rem, 4vw, 3.8rem); max-width: 620px; margin: 0 auto 1.4rem; }
+    #contact .body-text { max-width: 480px; margin: 0 auto 2.8rem; }
+    .cta-buttons { display: flex; gap: 1.2rem; justify-content: center; flex-wrap: wrap; }
+    .contact-details { margin-top: 4rem; display: flex; justify-content: center; gap: 4rem; border-top: 1px solid var(--border); padding-top: 3rem; }
+    .contact-item { text-align: center; }
+    .contact-item-label { font-size: 0.63rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; }
+    .contact-item-val { font-size: 0.88rem; color: var(--light); }
+
+    /* FOOTER */
+    footer { background: var(--cream); border-top: 1px solid var(--border); padding: 2.2rem 4rem; display: flex; align-items: center; justify-content: space-between; }
+    .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 600; color: var(--black); }
+    .footer-logo span { color: var(--gold); }
+    .footer-note { font-size: 0.7rem; color: var(--muted); line-height: 1.6; text-align: center; max-width: 480px; }
+    .footer-links { display: flex; gap: 2rem; }
+    .footer-links a { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--gold); }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      nav { padding: 1.2rem 2rem; }
+      .nav-links { display: none; }
+      #hero { grid-template-columns: 1fr; padding: 8rem 2rem 4rem; }
+      .hero-right { display: none; }
+      #about, #products { grid-template-columns: 1fr; padding: 5rem 2rem; gap: 3rem; }
+      #services, #who, #contact { padding: 5rem 2rem; }
+      .section-header { grid-template-columns: 1fr; gap: 1.2rem; }
+      .services-grid { grid-template-columns: 1fr; }
+      .who-grid { grid-template-columns: 1fr; }
+      .trust-bar { padding: 1.2rem 2rem; gap: 1.2rem; flex-wrap: wrap; }
+      footer { flex-direction: column; gap: 1.4rem; text-align: center; padding: 2rem; }
+      .contact-details { flex-direction: column; gap: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#" class="nav-logo">Troyer<span>Capital</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#products">Solutions</a></li>
+      <li><a href="#who">Who We Serve</a></li>
+    </ul>
+    <a href="https://calendly.com/troyerlincoln/meeting-with-lincoln" target="_blank" class="nav-cta">Free Consultation</a>
+  </nav>
+
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-lines"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">Independent Financial Contractor &amp; GFI Partner</div>
+      <h1>Protect Your Family.<br><em>Build Your Future.</em></h1>
+      <p class="hero-sub">Troyer Capital helps families and business owners with everything money — life insurance, annuities, retirement, real estate, debt, and more.</p>
+      <div class="hero-actions">
+        <a href="https://calendly.com/troyerlincoln/meeting-with-lincoln" target="_blank" class="btn-primary">Book a Free Consultation</a>
+        <a href="#services" class="btn-ghost">See Our Services</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-card">
+        <div class="hero-card-label">Why Indexed Universal Life?</div>
+        <h3>Market Growth. Zero Downside.</h3>
+        <p>IUL links your returns to market indexes while guaranteeing your principal. Grow with the market — and never lose when it falls.</p>
+        <div class="card-stats">
+          <div class="stat"><div class="stat-num">0%</div><div class="stat-label">Floor — No Loss</div></div>
+          <div class="stat"><div class="stat-num">Tax&#8209;Free</div><div class="stat-label">Death Benefit</div></div>
+          <div class="stat"><div class="stat-num">Flexible</div><div class="stat-label">Premium &amp; Access</div></div>
+          <div class="stat"><div class="stat-num">Lifetime</div><div class="stat-label">Protection</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="trust-bar">
+    <span class="trust-label">Affiliated with</span>
+    <div class="trust-items">
+      <span class="trust-item">Global Financial Impact (GFI)</span>
+      <span class="trust-item">Life &amp; Annuity Specialists</span>
+      <span class="trust-item">Independent Contractor</span>
+    </div>
+  </div>
+
+  <section id="about">
+    <div class="fade-up">
+      <div class="section-eyebrow">Who We Are</div>
+      <h2>Your Advisor.<br><em>Your Advocate.</em></h2>
+      <p class="body-text">Troyer Capital is an independent practice under GFI — Global Financial Impact. We're not a bank or a call center. We sit down with you, learn your goals, and build a plan around your life.</p>
+      <p class="body-text">We work with families at every income level and business owners at every stage — from protection and growth to retirement and legacy.</p>
+      <div class="highlight-box">
+        <p>"Make sure your family is protected no matter what — and make sure your money works as hard as you do."</p>
+      </div>
+    </div>
+    <div class="about-pillars fade-up">
+      <div class="pillar"><div class="pillar-num">01</div><div class="pillar-content"><h4>Protection First</h4><p>Life insurance is the foundation. We make sure your family is covered before anything else.</p></div></div>
+      <div class="pillar"><div class="pillar-num">02</div><div class="pillar-content"><h4>Tax-Advantaged Growth</h4><p>Your wealth grows in vehicles that minimize taxes — so you keep more of what you earn.</p></div></div>
+      <div class="pillar"><div class="pillar-num">03</div><div class="pillar-content"><h4>No-Loss Guarantee</h4><p>IUL and whole life protect your principal. Market crashes don't touch your floor.</p></div></div>
+      <div class="pillar"><div class="pillar-num">04</div><div class="pillar-content"><h4>Long-Term Partnership</h4><p>We review and adjust your plan as your life evolves. We're here for the long haul.</p></div></div>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="section-header fade-up">
+      <div>
+        <div class="section-eyebrow">What We Do</div>
+        <h2>Every Financial Need, <em>Covered</em></h2>
+      </div>
+      <p class="section-desc">From your first policy to your retirement exit — we have a strategy for every stage of your financial life.</p>
+    </div>
+    <div class="services-grid fade-up">
+
+      <div class="service-card">
+        <div class="service-icon-wrap">
+          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <polyline points="4,32 14,20 22,26 36,8" stroke="#b89a5e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <polyline points="28,8 36,8 36,16" stroke="#b89a5e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3>Wealth Accumulation</h3>
+        <p>Market-linked growth with a contractual floor. Your money grows — and never goes backward.</p>
+        <span class="service-tag">IUL · Whole Life</span>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon-wrap">
+          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 20 L20 6 L36 20" stroke="#b89a5e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M8 17V34H16V26H24V34H32V17" stroke="#b89a5e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3>Real Estate</h3>
+        <p>Use your policy's cash value to finance property — without losing liquidity or growth.</p>
+        <span class="service-tag">Cash Value · Leverage</span>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon-wrap">
+          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="20" cy="20" r="14" stroke="#b89a5e" stroke-width="2"/>
+            <path d="M20 10 L20 14 M20 26 L20 30" stroke="#b89a5e" stroke-width="2" stroke-linecap="round"/>
+            <path d="M15 15.5 C15 13.5 17 12 20 12 C23 12 25 13.5 25 16 C25 20 15 19 15 23 C15 25.5 17 28 20 28 C23 28 25 26.5 25 24.5" stroke="#b89a5e" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3>Debt Management</h3>
+        <p>Eliminate high-interest debt faster with a strategic plan that builds wealth at the same time.</p>
+        <span class="service-tag">Strategy · Optimization</span>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon-wrap">
+          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="20" cy="20" r="14" stroke="#b89a5e" stroke-width="2"/>
+            <polyline points="20,12 20,20 26,24" stroke="#b89a5e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3>Retirement Planning</h3>
+        <p>Build a tax-free income stream using annuities and life insurance — no 401(k) risk or fees.</p>
+        <span class="service-tag">Annuities · Tax-Free</span>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon-wrap">
+          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 6 L36 14 L20 22 L4 14 Z" stroke="#b89a5e" stroke-width="2" stroke-linejoin="round"/>
+            <path d="M10 18 L10 28 C10 28 14 32 20 32 C26 32 30 28 30 28 L30 18" stroke="#b89a5e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <line x1="36" y1="14" x2="36" y2="26" stroke="#b89a5e" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3>Million Dollar Baby &amp; College</h3>
+        <p>Start a whole life policy at birth. By 18 — a college fund. By 30 — financial freedom.</p>
+        <span class="service-tag">Participating Whole Life</span>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon-wrap">
+          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="4" y="18" width="32" height="18" rx="1" stroke="#b89a5e" stroke-width="2"/>
+            <path d="M14 18 V13 C14 10.8 16 9 18 9 H22 C24 9 26 10.8 26 13 V18" stroke="#b89a5e" stroke-width="2" stroke-linecap="round"/>
+            <line x1="4" y1="26" x2="36" y2="26" stroke="#b89a5e" stroke-width="2"/>
+            <line x1="20" y1="22" x2="20" y2="30" stroke="#b89a5e" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3>Business Solutions</h3>
+        <p>Key-person coverage, buy-sell agreements, and succession plans to protect what you've built.</p>
+        <span class="service-tag">Protection · Succession</span>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="products">
+    <div class="fade-up">
+      <div class="section-eyebrow">Our Primary Solutions</div>
+      <h2>Why IUL &amp; Whole Life <em>Win</em></h2>
+      <p class="body-text">These aren't just death benefits — they're living financial tools that build wealth, protect your family, and give you access to your money when you need it.</p>
+      <div class="product-features">
+        <div class="feature-row">
+          <div class="feature-icon-wrap">
+            <svg viewBox="0 0 28 28" fill="none"><path d="M14 3 L24 8 V14 C24 19.5 19.5 24 14 25 C8.5 24 4 19.5 4 14 V8 Z" stroke="#b89a5e" stroke-width="1.8" stroke-linejoin="round"/><polyline points="9,14 12,17 19,11" stroke="#b89a5e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div><h4>0% Floor — No Market Loss</h4><p>Your principal is contractually protected. The worst outcome is breaking even.</p></div>
+        </div>
+        <div class="feature-row">
+          <div class="feature-icon-wrap">
+            <svg viewBox="0 0 28 28" fill="none"><polyline points="3,22 9,14 15,18 25,6" stroke="#b89a5e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><polyline points="20,6 25,6 25,11" stroke="#b89a5e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div><h4>Market-Linked Upside</h4><p>Gains tied to indexes like the S&amp;P 500 — strong returns, zero downside.</p></div>
+        </div>
+        <div class="feature-row">
+          <div class="feature-icon-wrap">
+            <svg viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="10" stroke="#b89a5e" stroke-width="1.8"/><path d="M14 7 L14 10 M14 18 L14 21" stroke="#b89a5e" stroke-width="1.8" stroke-linecap="round"/><path d="M10.5 11 C10.5 9.5 12 8.5 14 8.5 C16 8.5 17.5 9.5 17.5 11 C17.5 14 10.5 13.5 10.5 16 C10.5 17.5 12 18.5 14 18.5 C16 18.5 17.5 17.5 17.5 16" stroke="#b89a5e" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </div>
+          <div><h4>Tax-Free Growth &amp; Access</h4><p>Cash value grows tax-deferred and is accessible tax-free through policy loans.</p></div>
+        </div>
+        <div class="feature-row">
+          <div class="feature-icon-wrap">
+            <svg viewBox="0 0 28 28" fill="none"><path d="M14 4 C14 4 6 8 6 15 C6 19.4 9.6 23 14 23 C18.4 23 22 19.4 22 15 C22 8 14 4 14 4Z" stroke="#b89a5e" stroke-width="1.8" stroke-linejoin="round"/><line x1="14" y1="13" x2="14" y2="18" stroke="#b89a5e" stroke-width="1.8" stroke-linecap="round"/><circle cx="14" cy="11" r="1" fill="#b89a5e"/></svg>
+          </div>
+          <div><h4>Living Benefits</h4><p>Riders for chronic illness, critical illness, and long-term care — protection while you're still alive.</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="product-visual fade-up">
+      <div class="product-card-big">
+        <div class="product-title">Product Comparison</div>
+        <div class="product-name">IUL vs. Traditional Savings</div>
+        <table class="comparison-table">
+          <thead><tr><th>Feature</th><th>IUL / Whole Life</th><th>401(k) / Savings</th></tr></thead>
+          <tbody>
+            <tr class="highlight"><td>Market Loss Protection</td><td><span class="check">✓ 0% Floor</span></td><td><span class="cross">✗ Full Risk</span></td></tr>
+            <tr><td>Tax-Free Retirement Income</td><td><span class="check">✓ Yes</span></td><td><span class="cross">✗ Taxed</span></td></tr>
+            <tr class="highlight"><td>Death Benefit</td><td><span class="check">✓ Guaranteed</span></td><td><span class="cross">✗ None</span></td></tr>
+            <tr><td>Access Before Retirement</td><td><span class="check">✓ Anytime</span></td><td><span class="cross">✗ Penalties</span></td></tr>
+            <tr class="highlight"><td>Living Benefits</td><td><span class="check">✓ Included</span></td><td><span class="cross">✗ None</span></td></tr>
+            <tr><td>Probate</td><td><span class="check">✓ Passes Directly</span></td><td><span class="cross">✗ Subject to Probate</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="who">
+    <div class="section-header fade-up">
+      <div>
+        <div class="section-eyebrow">Who We Serve</div>
+        <h2>Built for <em>Families</em> &amp; Business Owners</h2>
+      </div>
+      <p class="section-desc">Whether you're just starting out or protecting an empire — Troyer Capital has a plan for you.</p>
+    </div>
+    <div class="who-grid fade-up">
+      <div class="who-card">
+        <h3>Families &amp; Individuals</h3>
+        <p>Every family deserves a real financial plan — not just the wealthy. We work with people at every income level.</p>
+        <ul class="who-list">
+          <li>Young families starting out</li>
+          <li>Parents planning for their children</li>
+          <li>Individuals eliminating debt</li>
+          <li>Pre-retirees building income</li>
+        </ul>
+      </div>
+      <div class="who-card">
+        <h3>Business Owners &amp; Entrepreneurs</h3>
+        <p>Your business is your biggest asset. We help you protect it, plan for succession, and reward your best people.</p>
+        <ul class="who-list">
+          <li>Small to mid-size business owners</li>
+          <li>Self-employed &amp; sole proprietors</li>
+          <li>Partners needing buy-sell coverage</li>
+          <li>Executives building exit strategies</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="section-eyebrow">Ready to Start?</div>
+    <h2>Let's Build Your <em>Financial Future</em></h2>
+    <p class="body-text">A free, no-obligation conversation is all it takes. Book a time that works for you and we'll take it from there.</p>
+    <div class="cta-buttons">
+      <a href="https://calendly.com/troyerlincoln/meeting-with-lincoln" target="_blank" class="btn-primary">Book a Free Consultation</a>
+      <a href="tel:+16163256073" class="btn-ghost">Call (616) 325-6073</a>
+    </div>
+    <div class="contact-details">
+      <div class="contact-item"><div class="contact-item-label">Email</div><div class="contact-item-val">Troyerlincoln@gmail.com</div></div>
+      <div class="contact-item"><div class="contact-item-label">Phone</div><div class="contact-item-val">(616) 325-6073</div></div>
+      <div class="contact-item"><div class="contact-item-label">Affiliated With</div><div class="contact-item-val">Global Financial Impact (GFI)</div></div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-logo">Troyer<span>Capital</span></div>
+    <p class="footer-note">Troyer Capital is an independent financial contractor affiliated with Global Financial Impact (GFI). For informational purposes only — not financial, legal, or tax advice. Products vary by state.</p>
+    <div class="footer-links">
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+    setTimeout(() => {
+      document.querySelectorAll('.fade-up').forEach(el => {
+        if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('visible');
+      });
+    }, 100);
+    const nav = document.querySelector('nav');
+    window.addEventListener('scroll', () => {
+      nav.style.background = window.scrollY > 50
+        ? 'rgba(245,245,243,0.98)'
+        : 'rgba(245,245,243,0.92)';
+    });
+  </script>
+</body>
+</html>
