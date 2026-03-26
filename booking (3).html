@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book a Consultation | Troyer Capital</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --black:  #0a0a0a;
+      --ink:    #1c1c1c;
+      --dark:   #3a3a3a;
+      --mid:    #6a6a6a;
+      --light:  #9a9a9a;
+      --rule:   #dddbd7;
+      --warm:   #f0ede8;
+      --cream:  #f8f6f2;
+      --white:  #ffffff;
+      --gold:   #b89a5e;
+      --gold-d: #8a6e3a;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Outfit', sans-serif; background: var(--cream); color: var(--ink); min-height: 100vh; }
+
+    /* NAV */
+    nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 5rem;
+      background: var(--white); border-bottom: 1px solid var(--rule);
+    }
+    .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.45rem; font-weight: 600; color: var(--black); text-decoration: none; }
+    .nav-logo span { color: var(--gold); }
+    .nav-back { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mid); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; transition: color 0.2s; }
+    .nav-back:hover { color: var(--gold); }
+    .nav-back::before { content: '←'; }
+
+    /* HEADER */
+    .page-header {
+      text-align: center; padding: 4rem 5rem 3rem;
+      border-bottom: 1px solid var(--rule); background: var(--white);
+    }
+    .page-label { font-size: 0.62rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.8rem; display: flex; align-items: center; justify-content: center; gap: 0.7rem; }
+    .page-label::before, .page-label::after { content: ''; width: 20px; height: 1px; background: var(--gold); }
+    h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 300; color: var(--black); margin-bottom: 0.6rem; }
+    h1 em { font-style: italic; color: var(--gold); }
+    .page-sub { font-size: 0.9rem; font-weight: 300; color: var(--mid); }
+
+    /* MAIN LAYOUT */
+    .main {
+      display: grid; grid-template-columns: 1fr 1.2fr;
+      gap: 0; max-width: 1200px; margin: 0 auto;
+      border-left: 1px solid var(--rule); border-right: 1px solid var(--rule);
+    }
+
+    /* FORM SIDE */
+    .form-side {
+      padding: 3.5rem; background: var(--white);
+      border-right: 1px solid var(--rule);
+    }
+    .form-heading { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 300; color: var(--black); margin-bottom: 0.4rem; }
+    .form-sub { font-size: 0.8rem; color: var(--light); line-height: 1.7; margin-bottom: 2rem; }
+
+    .form-group { margin-bottom: 1.4rem; }
+    .form-group label { display: block; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dark); margin-bottom: 0.5rem; }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%; padding: 0.75rem 1rem;
+      border: 1px solid var(--rule); background: var(--cream);
+      font-family: 'Outfit', sans-serif; font-size: 0.88rem; color: var(--ink);
+      outline: none; transition: border-color 0.2s;
+      appearance: none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: var(--gold); background: var(--white); }
+    .form-group textarea { resize: vertical; min-height: 110px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+    .submit-btn {
+      width: 100%; padding: 1rem;
+      background: var(--gold); color: var(--white);
+      font-family: 'Outfit', sans-serif; font-size: 0.78rem;
+      font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+      border: none; cursor: pointer; transition: background 0.2s;
+      margin-top: 0.5rem;
+    }
+    .submit-btn:hover { background: var(--gold-d); }
+    #btn-sms:hover { background: #111 !important; }
+
+    .form-note { font-size: 0.7rem; color: var(--light); margin-top: 1rem; line-height: 1.6; }
+
+    /* SUCCESS STATE */
+    .success-msg {
+      display: none; text-align: center; padding: 2rem;
+      border: 1px solid rgba(184,154,94,0.3); background: rgba(184,154,94,0.05);
+    }
+    .success-msg .checkmark { font-size: 2rem; color: var(--gold); margin-bottom: 0.8rem; }
+    .success-msg h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 300; color: var(--black); margin-bottom: 0.4rem; }
+    .success-msg p { font-size: 0.82rem; color: var(--mid); }
+
+    /* CALENDLY SIDE */
+    .calendly-side {
+      padding: 3.5rem; background: var(--cream);
+      display: flex; flex-direction: column;
+    }
+    .calendly-heading { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 300; color: var(--black); margin-bottom: 0.4rem; }
+    .calendly-sub { font-size: 0.8rem; color: var(--light); line-height: 1.7; margin-bottom: 1.6rem; }
+    .calendly-wrap {
+      flex: 1; min-height: 580px;
+      border: 1px solid var(--rule); background: var(--white); overflow: hidden;
+    }
+    .calendly-wrap iframe { width: 100%; height: 100%; min-height: 580px; border: none; }
+
+    /* DIVIDER */
+    .or-divider {
+      display: flex; align-items: center; gap: 1rem;
+      margin: 1.4rem 0; color: var(--light); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+    }
+    .or-divider::before, .or-divider::after { content: ''; flex: 1; height: 1px; background: var(--rule); }
+
+    /* CONTACT STRIP */
+    .contact-strip {
+      margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--rule);
+      display: flex; justify-content: center; gap: 4rem; flex-wrap: wrap;
+      background: var(--white); padding: 2rem 5rem;
+      border-top: 1px solid var(--rule);
+    }
+    .c-item { text-align: center; }
+    .c-label { font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--light); margin-bottom: 0.4rem; }
+    .c-val { font-size: 0.85rem; color: var(--dark); }
+
+    /* FOOTER */
+    footer { background: var(--warm); border-top: 1px solid var(--rule); padding: 1.6rem 5rem; display: flex; align-items: center; justify-content: space-between; }
+    .f-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 600; color: var(--black); }
+    .f-logo span { color: var(--gold); }
+    .f-note { font-size: 0.66rem; color: var(--light); }
+
+    /* RESPONSIVE */
+    @media (max-width: 860px) {
+      nav, footer { padding: 1.2rem 2rem; }
+      .page-header { padding: 3rem 2rem 2rem; }
+      .main { grid-template-columns: 1fr; }
+      .form-side { border-right: none; border-bottom: 1px solid var(--rule); padding: 2.5rem 2rem; }
+      .calendly-side { padding: 2.5rem 2rem; }
+      .form-row { grid-template-columns: 1fr; }
+      .contact-strip { padding: 2rem; gap: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">Troyer<span>Capital</span></a>
+    <a href="index.html" class="nav-back">Back to Home</a>
+  </nav>
+
+  <!-- HEADER -->
+  <div class="page-header">
+    <div class="page-label">Free Consultation</div>
+    <h1>Let's Talk About <em>Your Future</em></h1>
+    <p class="page-sub">No obligation. Just a conversation about your goals.</p>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <!-- FORM -->
+    <div class="form-side">
+      <div class="form-heading">Send a Message</div>
+      <p class="form-sub">Fill out the form and Lincoln will get back to you within 24 hours.</p>
+
+      <form id="contact-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" name="first_name" placeholder="John" required />
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" name="last_name" placeholder="Smith" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" name="email" placeholder="john@example.com" required />
+        </div>
+        <div class="form-group">
+          <label>Phone</label>
+          <input type="tel" name="phone" placeholder="(616) 000-0000" />
+        </div>
+        <div class="form-group">
+          <label>I'm interested in</label>
+          <select name="interest">
+            <option value="">Select a service...</option>
+            <option>Life Insurance</option>
+            <option>Wealth Accumulation</option>
+            <option>Retirement Planning</option>
+            <option>Fixed Indexed Annuity</option>
+            <option>Real Estate</option>
+            <option>Debt Management</option>
+            <option>Million Dollar Baby / College Fund</option>
+            <option>Business Solutions</option>
+            <option>Not sure yet</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Message</label>
+          <textarea name="message" placeholder="Tell me a little about your goals or questions..."></textarea>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin-top:0.5rem;">
+          <button type="button" id="btn-gmail" class="submit-btn" style="display:flex;align-items:center;justify-content:center;gap:0.6rem;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="4" width="20" height="16" rx="2" stroke="white" stroke-width="1.6"/><path d="M2 7L12 13L22 7" stroke="white" stroke-width="1.6" stroke-linecap="round"/></svg>
+            Send via Gmail
+          </button>
+          <button type="button" id="btn-sms" class="submit-btn" style="display:flex;align-items:center;justify-content:center;gap:0.6rem;background:#2a2a2a;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 4h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H7l-4 3V6a2 2 0 0 1 2-2z" stroke="white" stroke-width="1.6" stroke-linejoin="round"/></svg>
+            Send via Text
+          </button>
+        </div>
+        <p class="form-note">Gmail opens a pre-filled email in your browser. Text opens your messaging app. Both go directly to Lincoln.</p>
+      </form>
+
+      <div class="success-msg" id="success">
+        <div class="checkmark">✓</div>
+        <h3>Message Sent!</h3>
+        <p>Thanks for reaching out. Lincoln will be in touch within 24 hours.</p>
+      </div>
+    </div>
+
+    <!-- CALENDLY -->
+    <div class="calendly-side">
+      <div class="calendly-heading">Book a Time Directly</div>
+      <p class="calendly-sub">Pick a time that works for you and Lincoln will be ready.</p>
+      <div class="calendly-wrap">
+        <iframe
+          src="https://calendly.com/troyerlincoln/meeting-with-lincoln?embed_domain=troyerlincoln-create.github.io&embed_type=Inline&hide_event_type_details=1&hide_gdpr_banner=1"
+          title="Schedule a meeting with Lincoln Troyer">
+        </iframe>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CONTACT STRIP -->
+  <div class="contact-strip">
+    <div class="c-item"><div class="c-label">Email</div><div class="c-val"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="cc98bea3b5a9bea0a5a2afa3a0a28caba1ada5a0e2afa3a1">[email&#160;protected]</a></div></div>
+    <div class="c-item"><div class="c-label">Phone</div><div class="c-val">(616) 325-6073</div></div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="f-logo">Troyer<span>Capital</span></div>
+    <p class="f-note">For informational purposes only — not financial, legal, or tax advice.</p>
+  </footer>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const form = this;
+      const data = new FormData(form);
+
+      // Send via Formspree — replace YOUR_FORM_ID below after signing up at formspree.io
+      fetch('https://formspree.io/f/YOUR_FORM_ID', {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      }).then(res => {
+        if (res.ok) {
+          form.style.display = 'none';
+          document.getElementById('success').style.display = 'block';
+        } else {
+          // Fallback: open email client if form service not set up
+          const name = data.get('first_name') + ' ' + data.get('last_name');
+          const email = data.get('email');
+          const phone = data.get('phone') || 'Not provided';
+          const interest = data.get('interest') || 'Not specified';
+          const message = data.get('message') || '';
+          const body = `Name: ${name}%0AEmail: ${email}%0APhone: ${phone}%0AInterest: ${interest}%0A%0AMessage:%0A${message}`;
+          window.location.href = `mailto:Troyerlincoln@gmail.com?subject=Consultation Request from ${name}&body=${body}`;
+        }
+      }).catch(() => {
+        // Fallback to mailto
+        const name = data.get('first_name') + ' ' + data.get('last_name');
+        const email = data.get('email');
+        const phone = data.get('phone') || 'Not provided';
+        const interest = data.get('interest') || 'Not specified';
+        const message = data.get('message') || '';
+        const body = `Name: ${name}%0AEmail: ${email}%0AP
