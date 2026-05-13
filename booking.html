@@ -251,7 +251,54 @@
     <p class="f-note">For informational purposes only — not financial, legal, or tax advice.</p>
   </footer>
 
-  <script>
+<script>
+      const LINCOLN_EMAIL = 'troyerlincoln@gmail.com';
+      const LINCOLN_PHONE = '6163256073';
+
+      function getFormData() {
+              const data = new FormData(document.getElementById('contact-form'));
+              return {
+                        name: (data.get('first_name') + ' ' + data.get('last_name')).trim(),
+                        email: data.get('email') || '',
+                        phone: data.get('phone') || 'Not provided',
+                        interest: data.get('interest') || 'Not specified',
+                        message: data.get('message') || ''
+              };
+      }
+
+      document.getElementById('btn-gmail').addEventListener('click', function () {
+              const f = getFormData();
+              if (!f.name || !f.email) { alert('Please fill in your name and email first.'); return; }
+              const subject = encodeURIComponent('Consultation Request from ' + f.name);
+              const body = encodeURIComponent(
+                        'Name: ' + f.name + '\n' +
+                        'Email: ' + f.email + '\n' +
+                        'Phone: ' + f.phone + '\n' +
+                        'Interest: ' + f.interest + '\n\n' +
+                        'Message:\n' + f.message
+                      );
+              window.open('https://mail.google.com/mail/?view=cm&fs=1&to=' + encodeURIComponent(LINCOLN_EMAIL) + '&su=' + subject + '&body=' + body, '_blank');
+              document.getElementById('contact-form').style.display = 'none';
+              document.getElementById('success').style.display = 'block';
+      });
+
+      document.getElementById('btn-sms').addEventListener('click', function () {
+              const f = getFormData();
+              if (!f.name) { alert('Please fill in your name first.'); return; }
+              const body = encodeURIComponent(
+                        'Hi Lincoln, I found you through TroyerCapital.com.\n' +
+                        'Name: ' + f.name + '\n' +
+                        'Interest: ' + f.interest + '\n' +
+                        (f.message ? 'Message: ' + f.message : '')
+                      );
+              window.open('sms:' + LINCOLN_PHONE + '?body=' + body, '_blank');
+              document.getElementById('contact-form').style.display = 'none';
+              document.getElementById('success').style.display = 'block';
+      });
+</script>
+</body>body>
+</html>html>
+</script>  <script>
     const LINCOLN_EMAIL = 'troyerlincoln@gmail.com';
     const LINCOLN_PHONE = '6163256073';
 
