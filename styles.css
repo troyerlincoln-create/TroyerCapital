@@ -897,6 +897,7 @@ footer {
   nav { padding: 1.1rem 2rem; }
   .nav-links { display: none; }
        .nav-cta { display: none; }
+       nav { justify-content: center; }
 
   #hero { padding: 7rem 2rem 4rem; }
   .hero-stats { flex-wrap: wrap; }
