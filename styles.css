@@ -896,6 +896,7 @@ footer {
 @media (max-width: 860px) {
   nav { padding: 1.1rem 2rem; }
   .nav-links { display: none; }
+       .nav-cta { display: none; }
 
   #hero { padding: 7rem 2rem 4rem; }
   .hero-stats { flex-wrap: wrap; }
@@ -907,11 +908,12 @@ footer {
 
   #about .inner { grid-template-columns: 1fr; gap: 2.5rem; }
   .about-photo-col {
-    flex-direction: row;
-    align-items: flex-start;
+    flex-direction: column;
+    align-items: center;
     gap: 1.5rem;
     flex-wrap: wrap;
   }
+       .headshot-name { text-align: center; width: 100%; }
 
   #solutions .inner { grid-template-columns: 1fr; gap: 3rem; }
   #services .grid,
